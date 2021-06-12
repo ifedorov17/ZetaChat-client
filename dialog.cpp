@@ -70,7 +70,6 @@ void Dialog::onSokReadyRead()
         break;
         case MyClient::comUsersOnline:
         {
-            AddToLog("Received user list "+_name,Qt::green);
             ui->pbSend->setEnabled(true);
             QString users;
             in >> users;
@@ -102,7 +101,7 @@ void Dialog::onSokReadyRead()
             in >> user;
             QString message;
             in >> message;
-            AddToLog("["+user+"](private): "+message, Qt::blue);
+            AddToLog("["+user+"] (private): "+message, Qt::blue);
         }
         break;
         case MyClient::comPrivateServerMessage:
@@ -135,13 +134,13 @@ void Dialog::onSokReadyRead()
         break;
         case MyClient::comErrNameInvalid:
         {
-            QMessageBox::information(this, "Error", "This name is invalid.");
+            QMessageBox::information(this, "Error", "Invalid name.");
             _sok->disconnectFromHost();
         }
         break;
         case MyClient::comErrNameUsed:
         {
-            QMessageBox::information(this, "Error", "This name is already used.");
+            QMessageBox::information(this, "Error", "This name is already taken.");
             _sok->disconnectFromHost();
         }
         break;
@@ -153,9 +152,8 @@ void Dialog::onSokConnected()
     ui->pbConnect->setEnabled(false);
     ui->pbDisconnect->setEnabled(true);
     _blockSize = 0;
-    AddToLog("Connected to"+_sok->peerAddress().toString()+":"+QString::number(_sok->peerPort()),Qt::green);
+    AddToLog("Connected to "+_sok->peerAddress().toString()+":"+QString::number(_sok->peerPort()),Qt::green);
 
-    //try autch
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out << (quint16)0;
@@ -173,7 +171,7 @@ void Dialog::onSokDisconnected()
     ui->pbDisconnect->setEnabled(false);
     ui->pbSend->setEnabled(false);
     ui->lwUsers->clear();
-    AddToLog("Disconnected from"+_sok->peerAddress().toString()+":"+QString::number(_sok->peerPort()), Qt::green);
+    AddToLog("Disconnected from: "+_sok->peerAddress().toString()+":"+QString::number(_sok->peerPort()), Qt::green);
 }
 
 void Dialog::on_pbConnect_clicked()
@@ -189,9 +187,9 @@ void Dialog::on_pbDisconnect_clicked()
 void Dialog::on_cbToAll_clicked()
 {
     if (ui->cbToAll->isChecked())
-        ui->pbSend->setText("Send To All");
+        ui->pbSend->setText("Отправить всем");
     else
-        ui->pbSend->setText("Send To Selected");
+        ui->pbSend->setText("Отправить выбранному");
 }
 
 void Dialog::on_pbSend_clicked()

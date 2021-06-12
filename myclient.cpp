@@ -6,9 +6,7 @@ const QString MyClient::constNameUnknown = QString(".Unknown");
 
 MyClient::MyClient(int desc, MyServer *serv, QObject *parent) :QObject(parent)
 {
-    //храниим указатель на объект-сервер
     _serv = serv;
-    //клиент не прошел авторизацию
     _isAutched = false;
     _name = constNameUnknown;
     _blockSize = 0;
@@ -36,11 +34,8 @@ void MyClient::onDisconnect()
     qDebug() << "Client disconnected";
     if (_isAutched)
     {
-        //убирием из интерфейса
         emit removeUserFromGui(_name);
-        //сообщаем всем, что клиент вышел
         _serv->doSendToAllUserLeft(_name);
-        //убираем из списка
         emit removeUser(this);
     }
     deleteLater();
@@ -152,7 +147,7 @@ void MyClient::doSendCommand(quint8 comm) const
     out.device()->seek(0);
     out << (quint16)(block.size() - sizeof(quint16));
     _sok->write(block);
-    qDebug() << "Send to" << _name << "command:" << comm;
+    qDebug() << "Send to" << _name << "command: " << comm;
 }
 
 void MyClient::doSendUsersOnline() const

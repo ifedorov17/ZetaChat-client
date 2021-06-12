@@ -56,14 +56,14 @@
      <item>
       <widget class="QLineEdit" name="leName">
        <property name="text">
-        <string>MyName</string>
+        <string>Имя</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pbConnect">
        <property name="text">
-        <string>Connect</string>
+        <string>Подключиться</string>
        </property>
       </widget>
      </item>
@@ -73,7 +73,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Disconnect</string>
+        <string>Отключиться</string>
        </property>
       </widget>
      </item>
@@ -87,14 +87,14 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Send</string>
+        <string>Отправить</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="cbToAll">
        <property name="text">
-        <string>To ALL</string>
+        <string>Всем</string>
        </property>
        <property name="checked">
         <bool>true</bool>
