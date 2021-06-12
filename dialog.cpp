@@ -187,9 +187,9 @@ void Dialog::on_pbDisconnect_clicked()
 void Dialog::on_cbToAll_clicked()
 {
     if (ui->cbToAll->isChecked())
-        ui->pbSend->setText("Отправить всем");
+        ui->pbSend->setText("Send to all");
     else
-        ui->pbSend->setText("Отправить выбранному");
+        ui->pbSend->setText("Send to selected");
 }
 
 void Dialog::on_pbSend_clicked()
